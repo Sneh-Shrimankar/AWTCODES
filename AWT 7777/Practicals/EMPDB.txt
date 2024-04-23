@@ -1,0 +1,30 @@
+protected void Button1_Click(object sender, EventArgs e)
+        {
+
+
+            try
+            {
+
+                SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["RegConnectionString"].ConnectionString);
+                conn.Open();
+                string insertQuery = "insert into emp(name,department,city,salary) values (@name,@department,@city,@salary)";
+                SqlCommand cmd = new SqlCommand(insertQuery, conn);
+                cmd.Parameters.AddWithValue("@name", NameTxt.Text);
+                cmd.Parameters.AddWithValue("@department", DeptTxt.Text);
+                cmd.Parameters.AddWithValue("@city", CityTxt.Text);
+                cmd.Parameters.AddWithValue("@salary", SalTxt.Text);
+                cmd.ExecuteNonQuery();
+
+                Response.Write("User registeration done Successfully!!!thank you");
+
+                conn.Close();
+
+            }
+            catch (Exception ex)
+            {
+                Response.Write("error" + ex.ToString());
+            }
+
+
+
+        }
